@@ -40,7 +40,7 @@ module.exports = (options) => {
 
   const length = longest(Object.keys(types)).length + 1;
   const choices = map(types, (type, key) => ({
-    name: `${rightPad(`${key}:`, length)} ${emojiSource[key]} ${type.description}`,
+    name: `${rightPad(`${key}:`, length)} ${type.description} ${emojiSource[key]}`,
     value: key,
   }));
 
@@ -187,9 +187,9 @@ module.exports = (options) => {
 
         // add emoji
         let emoji = '';
-        if (answers.isEmoji) emoji = answers.isEmoji ? `${emojiSource[answers.type]} ` : `${answers.emoji} `;
+        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${emojiSource[answers.type]}` : ` ${answers.emoji}`;
         // Hard limit this line in the validate
-        const head = `${answers.type + scope}: ${emoji}${answers.subject}`;
+        const head = `${answers.type + scope}: ${answers.subject}${emoji}`;
 
         // Wrap these lines at options.maxLineWidth characters
         const body = answers.body ? wrap(answers.body, wrapOptions) : false;
