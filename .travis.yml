@@ -12,7 +12,7 @@ jobs:
         provider: script
         skip_cleanup: true
         script:
-          - npm semantic-release
+          - npx semantic-release
 
 branches:
   only:
