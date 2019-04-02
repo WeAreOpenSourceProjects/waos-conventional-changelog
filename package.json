@@ -9,10 +9,10 @@
     "format": "prettier --write *.js",
     "semantic-release": "semantic-release"
   },
-  "homepage": "https://github.com/WeAreOpenSourceProjects/cz-conventional-changelog-emojis",
+  "homepage": "https://github.com/WeAreOpenSourceProjects/waos-conventional-changelog",
   "repository": {
     "type": "git",
-    "url": "https://github.com/WeAreOpenSourceProjects/cz-conventional-changelog-emojis.git"
+    "url": "https://github.com/WeAreOpenSourceProjects/waos-conventional-changelog.git"
   },
   "author": "Pierre Brisorgueil <brisorgueilp@gmail.com> for the fork, Jim Cummins <jimthedev@gmail.com>",
   "license": "MIT",
