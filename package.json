@@ -37,7 +37,7 @@
     "semver": "^6.0.0"
   },
   "optionalDependencies": {
-    "@commitlint/load": ">7.5.0"
+    "@commitlint/load": "^7.0.0"
   },
   "config": {
     "commitizen": {
