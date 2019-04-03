@@ -7,7 +7,7 @@
 
 # Presentation
 
-Prompts for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) standard, based on [z-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog), which seems to be abandoned. For this reason, we decided to make our own package and included some PR, swit to ES6 and addd an Emoji system for some fun.
+Prompts for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) standard, based on [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog), which seems to be abandoned. For this reason, we decided to make our own package and included some PR, swit to ES6 and addd an Emoji system for some fun.
 
 PR included :
 * yinzara - [feat: implement subject feedback, scope filtering, subject filtering](https://github.com/commitizen/cz-conventional-changelog/pull/75) 
