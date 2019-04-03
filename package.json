@@ -2,6 +2,13 @@
   "name": "waos-conventional-changelog",
   "version": "0.0.0-development",
   "description": "Commitizen adapter following the conventional-changelog format with emojis choice.",
+  "keywords": [
+    "commitlint",
+    "conventional-changelog",
+    "commitizen",
+    "cz-cli",
+    "emoji"
+  ],
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
