@@ -12,6 +12,8 @@ Prompts for [conventional changelog](https://github.com/conventional-changelog/c
 PR included :
 * yinzara - [feat: implement subject feedback, scope filtering, subject filtering](https://github.com/commitizen/cz-conventional-changelog/pull/75) 
 
+![gif](http://waos.ovh/content/gif/waos-conventional-changelog.gif)
+
 # Prerequisites
 
 Make sure you have installed all of the following prerequisites on your development machine:
