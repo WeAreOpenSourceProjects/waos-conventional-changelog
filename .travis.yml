@@ -10,8 +10,6 @@ cache:
   - node_modules
 install: 
   - npm i
-after_script:
-  - npm test
 jobs:
   include:
     - stage: release
