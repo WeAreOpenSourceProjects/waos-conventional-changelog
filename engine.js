@@ -7,8 +7,8 @@ const rightPad = require('right-pad');
 const chalk = require('chalk');
 const path = require('path');
 
-const helpers = require(path('./lib/helpers'));
-const config = require(path('./config/default.json'));
+const helpers = require(path.resolve('./lib/helpers'));
+const config = require(path.resolve('./config/default.json'));
 
 module.exports = (options) => {
   const types = options.types;

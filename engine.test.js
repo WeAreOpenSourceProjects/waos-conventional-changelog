@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const path = require('path');
 
 // const mock = require('mock-require');
-const engine = require(path('./engine'));
+const engine = require(path.resolve('./engine'));
 
 const defaultOptions = {
   types,
