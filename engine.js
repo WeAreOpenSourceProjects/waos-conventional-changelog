@@ -1,46 +1,21 @@
-'format cjs';
+/* eslint no-nested-ternary: 0 */
 
 const wrap = require('word-wrap');
 const map = require('lodash.map');
 const longest = require('longest');
 const rightPad = require('right-pad');
 const chalk = require('chalk');
+const path = require('path');
 
-const emojiSource = {
-  feat: '✨',
-  fix: '🐛',
-  docs: '📝',
-  style: '💄',
-  refactor: '♻️',
-  perf: '⚡️',
-  test: '✅',
-  build: '🏗',
-  ci: '👷🏼',
-  chore: '📦',
-  revert: '⏪',
-};
-
-const filter = array => array.filter(x => x);
-const headerLength = answers => answers.type.length + 2 + (answers.scope ? answers.scope.length + 2 : 0);
-const maxSummaryLength = (options, answers) => options.maxHeaderWidth - headerLength(answers);
-
-const filterSubject = (subject) => {
-  subject = subject.trim();
-  if (subject.charAt(0).toLowerCase() !== subject.charAt(0)) {
-    subject = subject.charAt(0).toLowerCase() + subject.slice(1, subject.length);
-  }
-  while (subject.endsWith('.')) {
-    subject = subject.slice(0, subject.length - 1);
-  }
-  return subject;
-};
+const helpers = require(path('./lib/helpers'));
+const config = require(path('./config/default.json'));
 
 module.exports = (options) => {
   const types = options.types;
 
   const length = longest(Object.keys(types)).length + 1;
   const choices = map(types, (type, key) => ({
-    name: `${rightPad(`${key}:`, length)} ${type.description} ${emojiSource[key]}`,
+    name: `${rightPad(`${key}:`, length)} ${type.description} ${config.emojis[key]}`,
     value: key,
   }));
 
@@ -50,14 +25,13 @@ module.exports = (options) => {
         {
           type: 'list',
           name: 'type',
-          message: "Select the type of change that you're committing:",
+          message: 'Select the type of change that you\'re committing:',
           choices,
           default: options.defaultType,
         }, {
           type: 'input',
           name: 'scope',
-          message:
-            'What is the scope of this change (e.g. component or file name): (press enter to skip)',
+          message: 'What is the scope of this change (e.g. component or file name): (press enter to skip)',
           default: options.defaultScope,
           filter(value) {
             return value.trim().toLowerCase();
@@ -80,32 +54,29 @@ module.exports = (options) => {
           message(answers) {
             return (
               `Write a short, imperative tense description of the change (max ${
-                maxSummaryLength(options, answers)
+                helpers.maxSummaryLength(options, answers)
               } chars):\n`
             );
           },
           default: options.defaultSubject,
           validate(subject, answers) {
-            const filteredSubject = filterSubject(subject);
-            return filteredSubject.length == 0
-              ? 'subject is required'
-              : filteredSubject.length <= maxSummaryLength(options, answers)
-                ? true
-                : `Subject length must be less than or equal to ${
-                  maxSummaryLength(options, answers)
-                } characters. Current length is ${
-                  filteredSubject.length
-                } characters.`;
+            const filteredSubject = helpers.filterSubject(subject);
+            return filteredSubject.length === 0 ? 'subject is required' : filteredSubject.length <= helpers.maxSummaryLength(options, answers) ? true
+              : `Subject length must be less than or equal to ${
+                helpers.maxSummaryLength(options, answers)
+              } characters. Current length is ${
+                filteredSubject.length
+              } characters.`;
           },
           transformer(subject, answers) {
-            const filteredSubject = filterSubject(subject);
-            const color = filteredSubject.length <= maxSummaryLength(options, answers)
+            const filteredSubject = helpers.filterSubject(subject);
+            const color = filteredSubject.length <= helpers.maxSummaryLength(options, answers)
               ? chalk.green
               : chalk.red;
             return color(`(${filteredSubject.length}) ${subject}`);
           },
           filter(subject) {
-            return filterSubject(subject);
+            return helpers.filterSubject(subject);
           },
         },
         {
@@ -130,7 +101,7 @@ module.exports = (options) => {
           when(answers) {
             return answers.isBreaking && !answers.body;
           },
-          validate(breakingBody, answers) {
+          validate(breakingBody) {
             return (
               breakingBody.trim().length > 0
               || 'Body is required for BREAKING CHANGE'
@@ -187,7 +158,7 @@ module.exports = (options) => {
 
         // add emoji
         let emoji = '';
-        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${emojiSource[answers.type]}` : ` ${answers.emoji}`;
+        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${config.emojis[answers.type]}` : ` ${answers.emoji}`;
         // Hard limit this line in the validate
         const head = `${answers.type + scope}: ${answers.subject}${emoji}`;
 
@@ -203,7 +174,7 @@ module.exports = (options) => {
 
         const issues = answers.issues ? wrap(answers.issues, wrapOptions) : false;
 
-        commit(filter([head, body, breaking, issues]).join('\n\n'));
+        commit(helpers.filter([head, body, breaking, issues]).join('\n\n'));
       });
     },
   };

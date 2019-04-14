@@ -33,6 +33,7 @@
     "conventional-commit-types": "^2.2.0",
     "lodash.map": "^4.6.0",
     "longest": "^2.0.1",
+    "path": "^0.12.7",
     "right-pad": "^1.0.1",
     "word-wrap": "^1.2.3"
   },
@@ -47,7 +48,10 @@
     "prettier": "^1.16.4",
     "semantic-release": "^15.13.3",
     "semver": "^6.0.0",
-    "waos-conventional-changelog": "^1.2.0"
+    "waos-conventional-changelog": "^1.2.0",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   },
   "config": {
     "commitizen": {
