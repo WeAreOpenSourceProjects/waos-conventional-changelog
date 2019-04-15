@@ -1,7 +1,12 @@
+/* eslint guard-for-in: 0 */
+/* eslint no-restricted-syntax: 0 */
+
 const types = require('conventional-commit-types').types;
 const chalk = require('chalk');
-const engine = require('./engine');
-const mock = require('mock-require');
+const path = require('path');
+
+// const mock = require('mock-require');
+const engine = require(path.resolve('./engine'));
 
 const defaultOptions = {
   types,
@@ -12,13 +17,110 @@ const defaultOptions = {
 const type = 'func';
 const scope = 'everything';
 const subject = 'testing123';
-const subject2 = 'after the fall, I was gone';
 const longBody = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const body = 'A quick brown fox jumps over the dog';
 const issues = 'a issues is not a person that kicks things';
 const longIssues = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
 const breakingChange = 'BREAKING CHANGE: ';
 const breaking = 'asdhdfkjhbakjdhjkashd adhfajkhs asdhkjdsh ahshd';
+
+
+function processQuestions(questions, answers) {
+  for (const i in questions) {
+    const question = questions[i];
+    const answer = answers[question.name];
+    const validation = answer === undefined || !question.validate
+      ? true
+      : question.validate(answer, answers);
+    if (validation !== true) {
+      throw new Error(
+        validation
+            || `Answer '${answer}' to question '${question.name}' was invalid`,
+      );
+    }
+    if (question.filter && answer) {
+      answers[question.name] = question.filter(answer);
+    }
+  }
+}
+
+
+function commitMessage(answers, options = defaultOptions) {
+  let result = null;
+  engine(options).prompter(
+    {
+      prompt(questions) {
+        return {
+          then(finalizer) {
+            processQuestions(questions, answers, options);
+            finalizer(answers);
+          },
+        };
+      },
+    },
+    (message) => {
+      result = message;
+    },
+  );
+  return result;
+}
+
+function getQuestions(options = defaultOptions) {
+  let result = null;
+  engine(options).prompter({
+    prompt(questions) {
+      result = questions;
+      return {
+        then() {},
+      };
+    },
+  });
+  return result;
+}
+
+function getQuestion(name, options = defaultOptions) {
+  const questions = getQuestions(options);
+  for (const i in questions) {
+    if (questions[i].name === name) {
+      return questions[i];
+    }
+  }
+  return false;
+}
+
+function questionPrompt(name, answers, options = defaultOptions) {
+  const question = getQuestion(name, options);
+  return question.message && typeof question.message === 'string'
+    ? question.message
+    : question.message(answers);
+}
+
+function questionTransformation(name, answers, options = defaultOptions) {
+  const question = getQuestion(name, options);
+  return (
+    question.transformer
+    && question.transformer(answers[name], answers, options)
+  );
+}
+
+function questionFilter(name, answer, options = defaultOptions) {
+  const question = getQuestion(name, options);
+  return (
+    question.filter
+    && question.filter(typeof answer === 'string' ? answer : answer[name])
+  );
+}
+
+function questionDefault(name, options = defaultOptions) {
+  const question = getQuestion(name, options);
+  return question.default;
+}
+
+function questionWhen(name, answers, options = defaultOptions) {
+  const question = getQuestion(name, options);
+  return question.when(answers);
+}
+
 
 describe('commit message', () => {
   test('only header w/ out scope', () => {
@@ -400,98 +502,3 @@ describe('when', () => {
 //     //   });
 //     // });
 // });
-
-function commitMessage(answers, options = defaultOptions) {
-  let result = null;
-  engine(options).prompter(
-    {
-      prompt(questions) {
-        return {
-          then(finalizer) {
-            processQuestions(questions, answers, options);
-            finalizer(answers);
-          },
-        };
-      },
-    },
-    (message) => {
-      result = message;
-    },
-  );
-  return result;
-}
-
-function processQuestions(questions, answers, options) {
-  for (const i in questions) {
-    const question = questions[i];
-    const answer = answers[question.name];
-    const validation = answer === undefined || !question.validate
-      ? true
-      : question.validate(answer, answers);
-    if (validation !== true) {
-      throw new Error(
-        validation
-          || `Answer '${answer}' to question '${question.name}' was invalid`,
-      );
-    }
-    if (question.filter && answer) {
-      answers[question.name] = question.filter(answer);
-    }
-  }
-}
-
-function getQuestions(options = defaultOptions) {
-  let result = null;
-  engine(options).prompter({
-    prompt(questions) {
-      result = questions;
-      return {
-        then() {},
-      };
-    },
-  });
-  return result;
-}
-
-function getQuestion(name, options = defaultOptions) {
-  const questions = getQuestions(options);
-  for (const i in questions) {
-    if (questions[i].name === name) {
-      return questions[i];
-    }
-  }
-  return false;
-}
-
-function questionPrompt(name, answers, options = defaultOptions) {
-  const question = getQuestion(name, options);
-  return question.message && typeof question.message === 'string'
-    ? question.message
-    : question.message(answers);
-}
-
-function questionTransformation(name, answers, options = defaultOptions) {
-  const question = getQuestion(name, options);
-  return (
-    question.transformer
-    && question.transformer(answers[name], answers, options)
-  );
-}
-
-function questionFilter(name, answer, options = defaultOptions) {
-  const question = getQuestion(name, options);
-  return (
-    question.filter
-    && question.filter(typeof answer === 'string' ? answer : answer[name])
-  );
-}
-
-function questionDefault(name, options = defaultOptions) {
-  const question = getQuestion(name, options);
-  return question.default;
-}
-
-function questionWhen(name, answers, options = defaultOptions) {
-  const question = getQuestion(name, options);
-  return question.when(answers);
-}
