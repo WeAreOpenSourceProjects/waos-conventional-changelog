@@ -5,10 +5,9 @@ const map = require('lodash.map');
 const longest = require('longest');
 const rightPad = require('right-pad');
 const chalk = require('chalk');
-const path = require('path');
 
-const helpers = require(path.resolve('./lib/helpers'));
-const config = require(path.resolve('./config/default.json'));
+const helpers = require('./lib/helpers');
+const config = require('./config/default.json');
 
 module.exports = (options) => {
   const types = options.types;

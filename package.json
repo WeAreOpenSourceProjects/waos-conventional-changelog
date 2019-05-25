@@ -33,7 +33,6 @@
     "conventional-commit-types": "^2.2.0",
     "lodash.map": "^4.6.0",
     "longest": "^2.0.1",
-    "path": "^0.12.7",
     "right-pad": "^1.0.1",
     "word-wrap": "^1.2.3"
   },
