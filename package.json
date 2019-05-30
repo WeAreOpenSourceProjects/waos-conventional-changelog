@@ -47,7 +47,7 @@
     "prettier": "^1.16.4",
     "semantic-release": "^15.13.3",
     "semver": "^6.0.0",
-    "waos-conventional-changelog": "^1.2.0",
+    "waos-conventional-changelog": "^1.7.2",
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0"
