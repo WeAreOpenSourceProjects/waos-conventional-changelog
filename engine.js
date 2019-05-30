@@ -159,7 +159,7 @@ module.exports = (options) => {
 
         // add emoji
         let emoji = '';
-        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${config[answers.type].emojis}` : ` ${answers.emoji}`;
+        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${config[answers.type].emoji}` : ` ${answers.emoji}`;
         // Hard limit this line in the validate
         const head = `${answers.type + scope}: ${answers.subject}${emoji}`;
 
