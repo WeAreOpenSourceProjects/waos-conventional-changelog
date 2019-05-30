@@ -37,20 +37,20 @@
     "word-wrap": "^1.2.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.5.2",
-    "@commitlint/config-conventional": "^7.5.0",
-    "commitizen": "^3.0.7",
-    "cosmiconfig": "^5.2.0",
-    "husky": "^2.0.0",
-    "jest": "^24.7.1",
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
+    "commitizen": "^3.1.1",
+    "cosmiconfig": "^5.2.1",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
     "mock-require": "^3.0.3",
-    "prettier": "^1.16.4",
-    "semantic-release": "^15.13.3",
-    "semver": "^6.0.0",
+    "prettier": "^1.17.1",
+    "semantic-release": "^15.13.12",
+    "semver": "^6.1.1",
     "waos-conventional-changelog": "^1.7.2",
-    "eslint": "^5.15.3",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.17.3"
   },
   "config": {
     "commitizen": {
