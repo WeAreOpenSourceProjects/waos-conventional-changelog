@@ -1,15 +1,38 @@
 {
-    "emojis" : {
-        "feat": "✨",
-        "fix": "🐛",
-        "docs": "📝",
-        "style": "💄",
-        "refactor": "♻️",
-        "perf": "⚡️",
-        "test": "✅",
-        "build": "🏗",
-        "ci": "👷🏼",
-        "chore": "📦",
-        "revert": "⏪"
+    "feat": {
+        "emoji": "✨",
+        "desc": "A new feature"
+    },
+    "fix": {
+        "emoji": "🐛",
+        "desc": "A bug fix"
+    },
+    "docs": {
+        "emoji": "📝",
+        "desc": "Documentation only changes"
+    },
+    "style": {
+        "emoji": "💄",
+        "desc": "Not affect the meaning (formatting ...)"
+    },
+    "refactor": {
+        "emoji": "♻️ ",
+        "desc": "Neither fixes a bug nor adds a feat"
+    },
+    "perf": {
+        "emoji": "⚡️",
+        "desc": "Improves performance"
+    },
+    "test": {
+        "emoji": "✅",
+        "desc": "Adding missing tests or correcting existing"
+    },
+    "ci": {
+        "emoji": "👷🏼",
+        "desc": "CI configuration files and scripts"
+    },
+    "build": {
+        "emoji": "📦",
+        "desc": "Build system or external dependencies"
     }
 }
