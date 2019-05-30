@@ -13,8 +13,10 @@ module.exports = (options) => {
   const types = options.types;
 
   const length = longest(Object.keys(types)).length + 1;
+  if (types.chore) delete types.chore;
+  if (types.revert) delete types.revert;
   const choices = map(types, (type, key) => ({
-    name: `${rightPad(`${key}:`, length)} ${type.description} ${config.emojis[key]}`,
+    name: `${config[key].emoji} ${rightPad(`${key}:`, length)} ${config[key].desc}`,
     value: key,
   }));
 
@@ -24,13 +26,13 @@ module.exports = (options) => {
         {
           type: 'list',
           name: 'type',
-          message: 'Select the type of change that you\'re committing:',
+          message: 'Type of change: ',
           choices,
           default: options.defaultType,
         }, {
           type: 'input',
           name: 'scope',
-          message: 'What is the scope of this change (e.g. component or file name): (press enter to skip)',
+          message: 'Scope of this change (enter to skip): ',
           default: options.defaultScope,
           filter(value) {
             return value.trim().toLowerCase();
@@ -38,12 +40,12 @@ module.exports = (options) => {
         }, {
           type: 'confirm',
           name: 'isEmoji',
-          message: 'Add Emoji by default ?',
+          message: 'Emoji by default ? ',
           default: true,
         }, {
           type: 'input',
           name: 'emoji',
-          message: 'Add your own Emoji :\n',
+          message: 'Your own Emoji: ',
           when(answers) {
             return !answers.isEmoji;
           },
@@ -52,20 +54,20 @@ module.exports = (options) => {
           name: 'subject',
           message(answers) {
             return (
-              `Write a short, imperative tense description of the change (max ${
+              `Description of the change (max ${
                 helpers.maxSummaryLength(options, answers)
-              } chars):\n`
+              } chars): `
             );
           },
           default: options.defaultSubject,
           validate(subject, answers) {
             const filteredSubject = helpers.filterSubject(subject);
             return filteredSubject.length === 0 ? 'subject is required' : filteredSubject.length <= helpers.maxSummaryLength(options, answers) ? true
-              : `Subject length must be less than or equal to ${
+              : `Length must be less than or equal to ${
                 helpers.maxSummaryLength(options, answers)
-              } characters. Current length is ${
+              }. Current length is ${
                 filteredSubject.length
-              } characters.`;
+              }.`;
           },
           transformer(subject, answers) {
             const filteredSubject = helpers.filterSubject(subject);
@@ -82,13 +84,13 @@ module.exports = (options) => {
           type: 'input',
           name: 'body',
           message:
-            'Provide a longer description of the change: (press enter to skip)\n',
+            'Details (enter to skip): ',
           default: options.defaultBody,
         },
         {
           type: 'confirm',
           name: 'isBreaking',
-          message: 'Are there any breaking changes?',
+          message: 'Are there any breaking changes ? ',
           default: false,
         },
         {
@@ -96,21 +98,21 @@ module.exports = (options) => {
           name: 'breakingBody',
           default: '-',
           message:
-            'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
+            'A breaking change requires a body. Please enter details: ',
           when(answers) {
             return answers.isBreaking && !answers.body;
           },
           validate(breakingBody) {
             return (
               breakingBody.trim().length > 0
-              || 'Body is required for BREAKING CHANGE'
+              || 'Detail is required for breaking change'
             );
           },
         },
         {
           type: 'input',
           name: 'breaking',
-          message: 'Describe the breaking changes:\n',
+          message: 'Describe the breaking changes: ',
           when(answers) {
             return answers.isBreaking;
           },
@@ -119,7 +121,7 @@ module.exports = (options) => {
         {
           type: 'confirm',
           name: 'isIssueAffected',
-          message: 'Does this change affect any open issues?',
+          message: 'Change affect any open issues ? ',
           default: !!options.defaultIssues,
         },
         {
@@ -127,7 +129,7 @@ module.exports = (options) => {
           name: 'issuesBody',
           default: '-',
           message:
-            'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n',
+            'If issues are closed, the commit requires details. Please enter details: ',
           when(answers) {
             return (
               answers.isIssueAffected && !answers.body && !answers.breakingBody
@@ -137,7 +139,7 @@ module.exports = (options) => {
         {
           type: 'input',
           name: 'issues',
-          message: 'Add issue references (e.g. "fix #123", "re #123".):\n',
+          message: 'Add issue references (e.g. "fix #123", "re #123".): ',
           when(answers) {
             return answers.isIssueAffected;
           },
@@ -157,7 +159,7 @@ module.exports = (options) => {
 
         // add emoji
         let emoji = '';
-        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${config.emojis[answers.type]}` : ` ${answers.emoji}`;
+        if (answers.isEmoji) emoji = answers.isEmoji ? ` ${config[answers.type].emojis}` : ` ${answers.emoji}`;
         // Hard limit this line in the validate
         const head = `${answers.type + scope}: ${answers.subject}${emoji}`;
 
@@ -167,7 +169,7 @@ module.exports = (options) => {
         // Apply breaking change prefix, removing it if already present
         let breaking = answers.breaking ? answers.breaking.trim() : '';
         breaking = breaking
-          ? `BREAKING CHANGE: ${breaking.replace(/^BREAKING CHANGE: /, '')}`
+          ? `breaking change: ${breaking.replace(/^breaking change: /, '')}`
           : '';
         breaking = breaking ? wrap(breaking, wrapOptions) : false;
 

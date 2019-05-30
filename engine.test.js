@@ -21,7 +21,7 @@ const longBody = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const body = 'A quick brown fox jumps over the dog';
 const issues = 'a issues is not a person that kicks things';
 const longIssues = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
-const breakingChange = 'BREAKING CHANGE: ';
+const breakingChange = 'breaking change: ';
 const breaking = 'asdhdfkjhbakjdhjkashd adhfajkhs asdhkjdsh ahshd';
 
 
@@ -301,8 +301,10 @@ describe('validation', () => {
       scope,
       subject: longBody,
     })).toThrow(
-      'length must be less than or equal to '
-        + `${defaultOptions.maxLineWidth - type.length - scope.length - 4}`,
+      'Length must be less than or equal to '
+        + `${defaultOptions.maxLineWidth - type.length - scope.length - 4}. Current length is ${
+          longBody.length
+        }.`,
     );
   });
   test('empty subject', () => {
