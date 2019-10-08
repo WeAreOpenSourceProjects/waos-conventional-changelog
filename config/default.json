@@ -20,8 +20,12 @@
         "desc": "Neither fixes a bug nor adds a feat"
     },
     "perf": {
-        "emoji": "⚡️",
+        "emoji": "🚀",
         "desc": "Improves performance"
+    },
+    "improvement": {
+        "emoji": "⚡️",
+        "desc": "Improvement to current feature"
     },
     "test": {
         "emoji": "✅",
