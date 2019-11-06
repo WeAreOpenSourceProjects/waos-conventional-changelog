@@ -40,7 +40,7 @@
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "commitizen": "^4.0.1",
-    "cosmiconfig": "^5.2.1",
+    "cosmiconfig": "^6.0.0",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
     "mock-require": "^3.0.3",
