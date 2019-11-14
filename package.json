@@ -30,27 +30,27 @@
   },
   "dependencies": {
     "chalk": "^3.0.0",
-    "conventional-commit-types": "^2.2.0",
+    "conventional-commit-types": "^2.3.0",
     "lodash.map": "^4.6.0",
     "longest": "^2.0.1",
     "right-pad": "^1.0.1",
     "word-wrap": "^1.2.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.0.0",
-    "@commitlint/config-conventional": "^8.0.0",
-    "commitizen": "^4.0.1",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "commitizen": "^4.0.3",
     "cosmiconfig": "^6.0.0",
-    "husky": "^3.0.0",
-    "jest": "^24.8.0",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
     "mock-require": "^3.0.3",
-    "prettier": "^1.17.1",
-    "semantic-release": "^15.13.12",
-    "semver": "^6.1.1",
-    "waos-conventional-changelog": "^1.7.2",
-    "eslint": "^6.0.0",
+    "prettier": "^1.19.1",
+    "semantic-release": "^15.13.30",
+    "semver": "^6.3.0",
+    "waos-conventional-changelog": "^1.8.1",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.17.3"
+    "eslint-plugin-import": "^2.18.2"
   },
   "config": {
     "commitizen": {
