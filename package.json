@@ -29,7 +29,7 @@
     }
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "conventional-commit-types": "^2.2.0",
     "lodash.map": "^4.6.0",
     "longest": "^2.0.1",
