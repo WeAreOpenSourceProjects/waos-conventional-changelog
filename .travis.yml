@@ -1,10 +1,9 @@
 language: node_js
 node_js:
-  - 12
-  - 10
-matrix:
-  allow_failures:
-    - node_js: 12
+- 10
+- 12
+os:
+- linux
 cache:
   directories:
   - node_modules
@@ -12,14 +11,13 @@ install:
   - npm i
 jobs:
   include:
-    - stage: release
-      node_js: lts/*
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
+  - stage: allow_failures
+    node_js: 13
+  - stage: release
+    node_js: lts/*
+    deploy:
+      provider: script
+      cleanup: true
+      script: npx semantic-release
+      on:
+        branch: maste
