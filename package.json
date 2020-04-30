@@ -44,7 +44,7 @@
     "husky": "^4.0.2",
     "jest": "^25.1.0",
     "mock-require": "^3.0.3",
-    "prettier": "^2.0.0",
+    "prettier": "^2.0.5",
     "semantic-release": "^17.0.0",
     "semver": "^7.0.0",
     "waos-conventional-changelog": "^1.8.1",
