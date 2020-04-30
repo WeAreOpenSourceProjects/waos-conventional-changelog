@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- 10
+- 12
+os:
+- linux
+cache:
+  directories:
+  - node_modules
+install: 
+  - npm i
+jobs:
+  include:
+  - stage: allow_failures
+    node_js: 13
+  - stage: release
+    node_js: lts/*
+    deploy:
+      provider: script
+      cleanup: true
+      script: npx semantic-release
+      on:
+        branch: maste
