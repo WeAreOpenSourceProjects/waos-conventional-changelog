@@ -21,4 +21,4 @@ jobs:
       cleanup: true
       script: npx semantic-release
       on:
-        branch: maste
+        branch: master
