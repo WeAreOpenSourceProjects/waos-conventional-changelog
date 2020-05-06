@@ -42,7 +42,7 @@
     "commitizen": "^4.0.5",
     "cosmiconfig": "^6.0.0",
     "husky": "^4.2.5",
-    "jest": "^25.5.2",
+    "jest": "^26.0.1",
     "mock-require": "^3.0.3",
     "prettier": "^2.0.5",
     "semantic-release": "^17.0.7",
