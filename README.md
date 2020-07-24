@@ -1,3 +1,11 @@
+-------------
+-------------
+
+## [switched to @weareopensource/conventional-changelog for concistency](https://github.com/weareopensource/conventional-changelog)
+
+-------------
+-------------
+
 [![npm](https://badges.weareopensource.me/npm/v/waos-conventional-changelog.svg?style=flat-square)](https://www.npmjs.com/package/waos-conventional-changelog) [![Build Status](https://badges.weareopensource.me/travis/WeAreOpenSourceProjects/waos-conventional-changelog.svg?style=flat-square)](https://travis-ci.org/WeAreOpenSourceProjects/waos-conventional-changelog) [![Code Climate](https://badges.weareopensource.me/codeclimate/maintainability-percentage/WeAreOpenSourceProjects/waos-conventional-changelog.svg?style=flat-square)](https://codeclimate.com/github/WeAreOpenSourceProjects/waos-conventional-changelog/maintainability)
  [![Dependabot badge](https://badges.weareopensource.me/badge/Dependabot-enabled-2768cf.svg?style=flat-square)](https://dependabot.com)
  [![Known Vulnerabilities](https://snyk.io/test/github/WeAreOpenSourceProjects/waos-conventional-changelog/badge.svg?style=flat-square)](https://snyk.io/test/github/WeAreOpenSourceProjects/waos-conventional-changelog)
